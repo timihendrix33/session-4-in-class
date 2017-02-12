@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Recipes</title>
+  <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+</head>
+<body>
+  <style>
+    html {
+      box-sizing: border-box;
+      font-family:'helvetica neue';
+      font-size: 20px;
+      font-weight: 200;
+    }
+    body {
+      margin: 0;
+    }
+    *, *:before, *:after {
+      box-sizing: inherit;
+    }
+    .panels {
+      min-height:100vh;
+      overflow: hidden;
+      display: flex;
+    }
+    .panel {
+      transition: font-size 0.7s linear, flex 0.7s linear;
+      flex: 1;
+      justify-content: center;
+      /*align-items: center;*/
+      display: flex;
+      flex-direction: column;
+      background:#000;
+      color:white;
+      text-align: center;
+      /* Safari transitionend event.propertyName === flex */
+      /* Chrome + FF transitionend event.propertyName === flex-grow */
+      /*transition: font-size 0.7s linear,
+      flex 0.7s linear;*/
+      font-size: 20px;
+      background-size:cover;
+      background-position:center;
+    }
+    .panel1 { background-image:url(/img/1.jpg); }
+    .panel2 { background-image:url(/img/2.jpg); }
+    .panel3 { background-image:url(/img/4.jpg); }
+    .panel4 { background-image:url(/img/3.jpg); }
+    .panel5 { background-image:url(/img/5.jpg); }
+
+    .panel * {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex: 1 0 auto;
+      border: 1px solid red;
+      margin:0;
+      width: 100%;
+      transition:transform 2.5s;
+    }
+    .panel p {
+      font-family: 'Lobster', cursive;
+      text-shadow:0 0 4px rgba(0, 0, 0, 0.72), 0 0 14px rgba(0, 0, 0, 0.45);
+      font-size: 1.5em;
+    }
+    .panel :first-child {
+      transform: translateY(-100%);
+    }
+    .panel.open-active :first-child {
+      transform: translateY(0);
+    }
+    .panel.open-active :last-child {
+      transform: translateY(0);
+    }
+    .panel :last-child {
+      transform: translateY(100%);
+    }
+    .panel p:nth-child(2) {
+      font-size: 3em;
+    }
+    .panel.open {
+      flex: 5;
+      font-size:40px;
+    }
+  </style>
+
+
+  <div class="panels">
+    <div class="panel panel1">
+      <p>Create a</p>
+      <p>Great</p>
+      <p>Picnic</p>
+    </div>
+    <div class="panel panel2">
+      <p>Local</p>
+      <p>Food</p>
+      <p>Fresh</p>
+    </div>
+    <div class="panel panel3">
+      <p>Always</p>
+      <p>Made</p>
+      <p>Fresh</p>
+    </div>
+    <div class="panel panel4">
+      <p>Simple</p>
+      <p>Easy</p>
+      <p>&amp; Fast</p>
+    </div>
+    <div class="panel panel5">
+      <p>Learn</p>
+      <p>Today</p>
+      <p>Free!</p>
+    </div>
+  </div>
+
+  <script>
+
+    const panels = document.querySelectorAll('.panel');
+
+    function toggleOpen(){
+      this.classList.toggle('open')
+    }
+    
+    panels.forEach( (panel) => panel.addEventListener('click', toggleOpen))
+
+    function openActive(e){
+      if (e.propertyName === 'flex-grow'){
+        this.classList.toggle('open-active')
+      }
+    }
+
+
+    panels.forEach( (panel) => panel.addEventListener('transitionend', openActive))
+
+  </script>
+
+
+
+</body>
+</html>
