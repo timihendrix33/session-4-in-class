@@ -121,12 +121,15 @@
     const panels = document.querySelectorAll('.panel');
 
     function toggleOpen(){
+      closePanels()
       this.classList.toggle('open')
     }
 
     panels.forEach( (panel) => panel.addEventListener('click', toggleOpen))
 
-
+    function closePanels(){
+      panels.forEach( (panel) => panel.classList.remove('open'))
+    }
 
     panels.forEach( (panel) => panel.addEventListener('transitionend', openActive))
 
