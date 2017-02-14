@@ -51,10 +51,16 @@ Add each property (in this order)
   <!-- align-items: center; --> 
 ```
 
+Allow the outlined items to expand vertically:
+
 ```
 .panel * {
   flex: 1 0 auto;
 ```
+
+Note - [Default is 0 1 auto](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
+
+Center the contents horizontally and vertically:
 
 ```
 .panel * {
@@ -111,7 +117,7 @@ Add transition to the panel
   transition: font-size 0.7s linear, flex 0.7s linear;
 ```
 
-The panels will open before the words animate in.
+The panels need to open before the words animate in.
 
 ###JavaScript
 
@@ -125,7 +131,7 @@ function toggleOpen(){
 panels.forEach( (panel) => panel.addEventListener('click', toggleOpen))
 ```
 
-In order to apply the second animation
+In order to apply the second animation. NOT:
 
 ```
 setTimeout(function(){
@@ -133,11 +139,13 @@ setTimeout(function(){
 }, 3000)
 ```
 
+Use the transitionend event instead:
+
 ```
 function openActive(e){
   console.log(e)
-  console.log(this)
-  console.log(e.propertyName)
+  // console.log(this)
+  // console.log(e.propertyName)
   // this.classList.toggle('open-active')
 }
 
