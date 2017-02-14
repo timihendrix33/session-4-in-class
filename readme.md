@@ -14,8 +14,12 @@ Examine the DOM structure and CSS in the inspector.
 
 ###Editing
 
+Flexbox formatting 
+https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+
 ```
 .panel {
+  background:#000;
   background-position: center;
   background-size: cover;
 ```
@@ -59,7 +63,7 @@ Add each property (in this order)
   align-items: center;
 ```
 
-https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+Setup for animation
 
 ```
 .panel :first-child {
@@ -73,7 +77,7 @@ https://css-tricks.com/snippets/css/a-guide-to-flexbox/
 }
 ```
 
-We are going to use JS to animate the words in.
+We are going to use JS to add classes that will animate the words in.
 
 
 ```
@@ -82,15 +86,20 @@ We are going to use JS to animate the words in.
 }
 ```
 
+```
+.panel * {
+  transition:transform 0.5s;
+```
+
 Select a panel in the element inspector: `$0`
 
 `$0.classList.add('open-active')`
 
-Open panels take 5 times as much space:
+Open panels take 3 times as much space:
 
 ```
 .panel.open {
-  flex: 5;
+  flex: 3;
 ```
 
 `$0.classList.add('open')`
@@ -101,6 +110,8 @@ Add transition to the panel
 .panel {
   transition: font-size 0.7s linear, flex 0.7s linear;
 ```
+
+The panels will open before the words animate in.
 
 ###JavaScript
 
@@ -151,11 +162,32 @@ function openActive(e){
 }
 ```
 
+```
+.panel.open-active :last-child {
+  transform: translateY(0);
+}
+```
+
 Edit the transitions in the styles panel.
 
 Copy the results to replace the linear timing functions.
 
 `cubic-bezier(0.28, -0.3, 0.58, 1.21)`
+
+Close panels on open
+
+```
+function closePanels(){
+  panels.forEach( (panel) => panel.classList.remove('open'))
+}
+```
+
+```
+function toggleOpen(){
+  closePanels()
+  this.classList.toggle('open')
+}
+```
 
 
 

@@ -20,27 +20,24 @@
       box-sizing: inherit;
     }
     .panels {
+      display: flex;
       min-height:100vh;
       overflow: hidden;
-      display: flex;
     }
     .panel {
-      flex: 1;
-      justify-content: center;
-      align-items: center;
       display: flex;
       flex-direction: column;
+      justify-content: center;
+      flex: 1;
       background:#000;
+      background-position: center;
+      background-size: cover;
       color:white;
       text-align: center;
-      /*align-items:center;*/
       /* Safari transitionend event.propertyName === flex */
       /* Chrome + FF transitionend event.propertyName === flex-grow */
-      transition: font-size 0.7s cubic-bezier(0.57,-0.43, 0.75, 1.23),
-      flex 0.7s cubic-bezier(0.61,-0.19, 0.7,-0.11);
+      transition: font-size 0.7s linear, flex 0.7s linear;
       font-size: 20px;
-      background-size:cover;
-      background-position:center;
     }
     .panel1 { background-image:url(/img/1.jpg); }
     .panel2 { background-image:url(/img/2.jpg); }
@@ -49,14 +46,19 @@
     .panel5 { background-image:url(/img/5.jpg); }
 
     .panel * {
-      /*border: 1px solid red;*/
-      flex: 1 0 auto;
       display: flex;
       justify-content: center;
       align-items: center;
+      flex: 1 0 auto;
+      /*border: 1px solid red;*/
       margin:0;
       width: 100%;
       transition:transform 0.5s;
+    }
+    .panel p {
+      font-family: 'Lobster', cursive;
+      text-shadow:0 0 4px rgba(0, 0, 0, 0.72), 0 0 14px rgba(0, 0, 0, 0.45);
+      font-size: 1.5em;
     }
     .panel :first-child {
       transform: translateY(-100%);
@@ -70,21 +72,12 @@
     .panel.open-active :last-child {
       transform: translateY(0);
     }
-    .panel p {
-      font-family: 'Lobster', cursive;
-      text-shadow:0 0 4px rgba(0, 0, 0, 0.72), 0 0 14px rgba(0, 0, 0, 0.45);
-      font-size: 1.5em;
-    }
     .panel p:nth-child(2) {
       font-size: 3em;
     }
     .panel.open {
       flex: 3;
       font-size:40px;
-    }
-    .cta {
-      color:white;
-      text-decoration: none;
     }
   </style>
 
@@ -124,22 +117,20 @@
       closePanels()
       this.classList.toggle('open')
     }
-
+    
     panels.forEach( (panel) => panel.addEventListener('click', toggleOpen))
+
+    function openActive(e){
+      if(e.propertyName.includes('flex')){
+        this.classList.toggle('open-active')
+      }
+    }
 
     function closePanels(){
       panels.forEach( (panel) => panel.classList.remove('open'))
     }
 
     panels.forEach( (panel) => panel.addEventListener('transitionend', openActive))
-
-    function openActive(e){
-      console.log(e.propertyName)
-      if(e.propertyName.includes('flex')){
-      // if(e.propertyName !== transform){
-        this.classList.toggle('open-active')
-      }
-    }
   </script>
 
 
